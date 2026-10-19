@@ -1,0 +1,45 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": { "major": 3, "minor": 24, "patch": 0 },
+  "configurePresets": [
+    {
+      "name": "vs2022",
+      "displayName": "Visual Studio 2022 (x64)",
+      "generator": "Visual Studio 17 2022",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": { "TONY_BUILD_TESTS": "ON" }
+    },
+    {
+      "name": "vs2022-engines",
+      "displayName": "Visual Studio 2022 + build llama.cpp/whisper.cpp/stable-diffusion.cpp from source (needs Vulkan SDK)",
+      "inherits": "vs2022",
+      "cacheVariables": { "TONY_BUILD_ENGINES": "ON", "TONY_GPU": "vulkan" }
+    },
+    {
+      "name": "ninja-msvc",
+      "displayName": "Ninja + MSVC (run from a Developer Command Prompt)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build-ninja",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Release", "TONY_BUILD_TESTS": "ON" }
+    },
+    {
+      "name": "linux-tests",
+      "displayName": "Portable tests only (Linux/macOS, uses system libcurl)",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build-tests",
+      "cacheVariables": { "TONY_BUILD_APP": "OFF", "TONY_SYSTEM_CURL": "ON", "CMAKE_BUILD_TYPE": "Release" }
+    }
+  ],
+  "buildPresets": [
+    { "name": "release", "configurePreset": "vs2022", "configuration": "Release" },
+    { "name": "debug", "configurePreset": "vs2022", "configuration": "Debug" },
+    { "name": "release-engines", "configurePreset": "vs2022-engines", "configuration": "Release" },
+    { "name": "ninja", "configurePreset": "ninja-msvc" },
+    { "name": "tests", "configurePreset": "linux-tests" }
+  ],
+  "testPresets": [
+    { "name": "windows", "configurePreset": "vs2022", "configuration": "Release", "output": { "outputOnFailure": true } },
+    { "name": "linux", "configurePreset": "linux-tests", "output": { "outputOnFailure": true } }
+  ]
+}
