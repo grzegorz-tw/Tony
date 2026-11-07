@@ -123,3 +123,5 @@ contents. `-LlamaTag latest` picks the newest release but newer builds may chang
 
 llama.cpp, whisper.cpp, stable-diffusion.cpp, ggml (MIT) · Dear ImGui (MIT) · miniaudio (public domain / MIT-0) · stb (public domain / MIT) · nlohmann/json (MIT) ·
 libcurl (curl license) · Piper (MIT; voices have their own licenses) · aria2 (GPL-2.0, used as a separate program). Model licenses vary: check each model card.
+
+# Generated using Claude Sonnet 5.5
